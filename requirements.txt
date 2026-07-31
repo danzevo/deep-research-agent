@@ -1,0 +1,5 @@
+sqlmodel
+pydantic-settings
+openai
+requests
+python-telegram-bot

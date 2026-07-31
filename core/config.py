@@ -1,0 +1,15 @@
+from pydantic_settings import BaseSettings
+
+class Settings(BaseSettings):
+    lmstudio_base_url: str = "http://localhost:1234/v1"
+    lmstudio_api_key: str = "lm-studio"
+    lmstudio_model: str = "meta-llama-3.1-8b-instruct"
+    tavily_api_key: str = ""
+    database_url: str = "sqlite:///database.db"
+    verify_ssl: bool = False
+    telegram_bot_token: str = ""
+
+    class Config:
+        env_file = ".env"
+
+settings = Settings()
