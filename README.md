@@ -44,3 +44,11 @@ Submit a research task via the Spring Boot API:
 ```bash
 curl -X POST http://localhost:8080/api/research -H "Content-Type: application/json" -d "{\"topic\": \"Artificial Intelligence in Healthcare\"}"
 ```
+
+## Troubleshooting
+**"The JAVA_HOME environment variable is not defined correctly"**
+If you see this error when running `mvn spring-boot:run` in Git Bash, you need to set your temporary Java path. Run this before starting Maven:
+```bash
+export JAVA_HOME="/c/Program Files (x86)/Eclipse Adoptium/jdk-17.0.16.8-hotspot"
+export PATH="$JAVA_HOME/bin:$PATH"
+```

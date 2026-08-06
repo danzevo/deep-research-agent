@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -40,5 +41,11 @@ public class ResearchController {
         Optional<ResearchTask> task = repository.findById(id);
 
         return task.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    // Endpoint 3: Get ALL tasks for the Dashboard history
+    @GetMapping
+    public ResponseEntity<List<ResearchTask>> getAllTasks() {
+        return ResponseEntity.ok(repository.findAll());
     }
 }
