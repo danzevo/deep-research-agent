@@ -6,6 +6,7 @@ from core.config import settings
 from core.database import create_db_and_tables, get_session
 from services.agent_service import run_research
 from services.telegram_service import start_telegram_bot
+from services.rabbit_worker import start_worker
 
 # --- 🚨 SLEDGEHAMMER SSL BYPASS 🚨 ---
 if not settings.verify_ssl:
@@ -33,13 +34,16 @@ def main():
     parser = argparse.ArgumentParser(description="Autonomous Web Research Agent")
     parser.add_argument("--query", type=str, help="Run a single query in the terminal")
     parser.add_argument("--telegram", action="store_true", help="Start the telegram Bot server")
-
+    parser.add_argument("--worker", action="store_true", help="Start the RabbitMQ Background Worker")
     args = parser.parse_args()
 
     # Initialize DB (creates database.db if it doesn't exist)
     create_db_and_tables()
 
-    if args.telegram:
+    if args.worker:
+        print("Starting RabbitMQ AI Worker...")
+        start_worker()
+    elif args.telegram:
         # User typed: python main.py --telegram
         start_telegram_bot()
     elif args.query:

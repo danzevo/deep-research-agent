@@ -8,8 +8,11 @@ class Settings(BaseSettings):
     database_url: str = "sqlite:///database.db"
     verify_ssl: bool = False
     telegram_bot_token: str = ""
+    RABBITMQ_HOST: str = "localhost"
+    RABBITMQ_PORT: int = 5672
+    RABBITMQ_QUEUE: str = "research_tasks"
 
     class Config:
-        env_file = ".env"
+        env_file = "../.env"
 
 settings = Settings()

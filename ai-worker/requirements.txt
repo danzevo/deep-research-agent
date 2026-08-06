@@ -3,3 +3,4 @@ pydantic-settings
 openai
 requests
 python-telegram-bot
+pika==1.3.2

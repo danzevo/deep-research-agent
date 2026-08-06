@@ -12,9 +12,31 @@ env/
 # Database
 database.db
 
+# Java / Maven / Spring Boot
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+*.class
+*.jar
+*.war
+*.ear
+*.log
+
 # IDEs
 .vscode/
 .idea/
+*.iml
+.project
+.classpath
+.settings/
 
 # Portfolio
 PORTFOLIO.md
+
+# Node / Vue Frontend
+node_modules/
+dist/
+dist-ssr/
+*.local
+.npm/

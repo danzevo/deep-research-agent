@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: platform
+
+  # PostgreSQL Database Configuration
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5433/research_db}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+  # Hibernate/JPA Configuration
+  jpa:
+    hibernate:
+      ddl-auto: update # Automatically creates database tables based on our Java classes
+      show-sql: true
+      properties: 
+        hibernate:
+          format_sql: true
+  # RabbitMQ Configuration
+  rabbitmq:
+    host: ${SPRING_RABBITMQ_HOST:localhost}
+    port: ${SPRING_RABBITMQ_PORT:5672}
+    username: ${SPRING_RABBITMQ_USERNAME:guest}
+    password: ${SPRING_RABBITMQ_PASSWORD:guest}
+
+# Custom App Config
+app:
+  rabbitmq:
+    exchange: research_exchange
+    task-queue: research_tasks
+    result_queue: research_results
+    routing-key-task: task.routing.key
+    routing-key-result: result.routing.key
+  
+
