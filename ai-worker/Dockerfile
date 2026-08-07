@@ -14,4 +14,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # When the container starts, run the Telegram bot
-CMD ["python", "main.py", "--telegram"]
+CMD ["python", "main.py", "--worker"]

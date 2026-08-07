@@ -1,4 +1,4 @@
-name: Build and Publish Docker Image
+name: Build and Publish Microservices
 
 # This tells GitHub to run this pipeline every time you push to the 'main' branch
 on:
@@ -14,7 +14,12 @@ permissions:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
-    
+    # 🌟 THE MATRIX STRATEGY 🌟
+    # This tells GitHub to run this entire job 3 times simultaneously!
+    strategy:
+      matrix:
+        service: [backend, frontend, ai-worker]
+
     steps:
       # Step 1: Download your code onto the GitHub server
       - name: Checkout code
@@ -33,13 +38,15 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ghcr.io/${{ github.repository }}
+          images: ghcr.io/${{ github.repository }}-${{ matrix.service }}
 
       # Step 4: Build the Dockerfile and push it to the registry
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: ./ai-worker
+          # This dynamically injects the folder name!
+          # context: ./ai-worker
+          context: ./${{ matrix.service }}
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
