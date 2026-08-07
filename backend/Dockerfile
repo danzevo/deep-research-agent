@@ -2,7 +2,7 @@
 FROM maven:3.9.6-eclipse-temurin-17-alpine as builder
 WORKDIR /app
 # Copy the pom.xml and source code
-COPY pom.xml
+COPY pom.xml .
 COPY src ./src
 # Build the jar file (skipping tests for speed in CI)
 RUN mvn clean package -DskipTests
