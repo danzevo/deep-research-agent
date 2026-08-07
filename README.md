@@ -11,6 +11,7 @@ This project has been refactored into a scalable Microservices architecture:
 * **Database**: PostgreSQL
 * **LLM Provider**: LM Studio (Local)
 * **Search/Scraping**: Tavily API, Jina AI
+* **Frontend**: Vue 3, Tailwind CSS v4
 
 ## Infrastructure Setup
 
@@ -33,7 +34,14 @@ This project has been refactored into a scalable Microservices architecture:
    python main.py --worker
    ```
 
-4. **Environment Variables**
+4. **Start the Vue Frontend**
+   ```bash
+   cd frontend
+   npm install
+   npm run dev
+   ```
+
+5. **Environment Variables**
    Create a `.env` file in the root directory:
    ```env
    TAVILY_API_KEY="your_tavily_token"
@@ -52,3 +60,6 @@ If you see this error when running `mvn spring-boot:run` in Git Bash, you need t
 export JAVA_HOME="/c/Program Files (x86)/Eclipse Adoptium/jdk-17.0.16.8-hotspot"
 export PATH="$JAVA_HOME/bin:$PATH"
 ```
+
+## CI/CD Pipeline
+This repository features a fully automated, Polyglot CI/CD pipeline using **GitHub Actions**. Every push to the `main` branch triggers a Matrix Strategy that spins up 3 parallel virtual machines to compile the Java, Python, and Node environments simultaneously into multi-stage Docker images on the GitHub Container Registry.
