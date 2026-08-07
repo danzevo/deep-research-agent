@@ -71,3 +71,24 @@ jobs:
   #           docker-compose pull
   #           # 3. Restart the containers silently in the background
   #           docker-compose up -d
+
+  # 🧹 AUTO CLEANUP JOB 🧹
+  cleanup:
+    # This runs immediately after the new images are built
+    needs: build-and-push
+    runs-on: ubuntu-latest
+
+    # We use the same matrix so it cleans all 3 services!
+    strategy: 
+      matrix:
+        service: [backend, frontend, ai-worker]
+    steps:
+      - name: Delete old Docker images
+        uses: actions/delete-package-versions@v5
+        with:
+          # This dynamically gets the package name (e.g. enterprise-ai-research-platform-backend)
+          package-name: ${{ github.event.repository.name }}-${{ matrix.service }}
+          package-type: 'container'
+          # Keep the 3 newest images, delete all the rest!
+          min-versions-to-keep: 3
+          delete-only-untagged-versions: 'false'
