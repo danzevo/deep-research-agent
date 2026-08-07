@@ -50,3 +50,24 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+      
+  # # 🌟 THE CD PIPELINE 🌟
+  # deploy:
+  #   # This tells GitHub to WAIT until all 3 Matrix images finish building successfully!
+  #   needs: build-and-push
+  #   runs-on: ubuntu-latest
+
+  #   steps: 
+  #     - name: Deploy to Live Server via SSH
+  #       uses: appleboy/ssh-action@v1.0.3
+  #       with:
+  #         host: ${{ secrets.SERVER_HOST }}
+  #         username: ${{ secrets.SERVER_USERNAME }}
+  #         key: ${{ secrets.SERVER_SSH_KEY }}
+  #         script: |
+  #           # 1. Navigate to the folder on your server where docker-compose.yml lives
+  #           cd /path/to/your/project
+  #           # 2. Force Docker to download the 3 fresh images we just built
+  #           docker-compose pull
+  #           # 3. Restart the containers silently in the background
+  #           docker-compose up -d
